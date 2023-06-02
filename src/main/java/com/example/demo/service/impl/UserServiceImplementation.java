@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import org.apache.catalina.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,39 @@ public class UserServiceImplementation implements userService {
         BeanUtils.copyProperties(stroedUserDetails, returnValue);
 
         return returnValue;
+    }
+
+    @Override
+    public UserDto getUserByUserId(String userId) {
+        UserDto returnValue = new UserDto();
+        UserEntity userEntity = userRepository.findByUserId(userId);
+        if(userEntity == null) throw new RuntimeException("Record not exist");
+        BeanUtils.copyProperties(userEntity, returnValue);
+        return returnValue;
+    }
+
+    @Override
+    public UserDto updateUser(String userId, UserDto user) {
+
+        UserDto returnValue = new UserDto();
+        UserEntity userEntity = userRepository.findByUserId(userId);
+
+        if(userEntity == null) throw new RuntimeException("Record not exist");
+
+        userEntity.setFname(user.getFname());
+        userEntity.setName(user.getName());
+
+        UserEntity  updatedUserDetails = userRepository.save(userEntity);
+        BeanUtils.copyProperties(updatedUserDetails, returnValue);
+        return returnValue;
+    }
+
+    @Override
+    public void deleteUser(String userId) {
+
+        UserEntity userEntity = userRepository.findByUserId(userId);
+        if(userEntity == null) throw new RuntimeException("Record not exist");
+        userRepository.delete(userEntity);
     }
     
     

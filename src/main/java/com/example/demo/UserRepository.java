@@ -5,6 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.io.entity.UserEntity;
+import java.util.List;
+
 
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long> 
@@ -16,4 +18,5 @@ public interface UserRepository extends CrudRepository<UserEntity, Long>
     //  UserEntity findUserByEmail(String email);
 
     UserEntity findByFname(String fname);
+    UserEntity findByUserId(String userId);
 }
