@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class UserDto implements Serializable{
 
-    private static final long serialVersionUID = 1L;
-    private long id;
+    private static final long serialVersionUID = 1013624515610751239L;
+	private long id;
     private String userId;
     private String fname;
     private String name;
